@@ -5,14 +5,14 @@ import bcrypt from 'bcrypt'
 import UserRole from '../enums/UserRole.js'
 
 const cartSchema = new Schema({
-  product: {
+  activity: {
     type: ObjectId,
-    ref: 'products',
-    required: [true, '缺少商品欄位']
+    ref: 'activity',
+    required: [true, '缺少活動欄位']
   },
   quantity: {
     type: Number,
-    required: [true, '缺少商品數量']
+    required: [true, '缺少活動人數']
   }
 })
 
