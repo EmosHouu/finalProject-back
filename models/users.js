@@ -76,6 +76,12 @@ const schema = new Schema({
       message: '使用者信箱格式錯誤'
     }
   },
+  avatar: {
+    type: String,
+    default () {
+      return `https://source.boringavatars.com/beam/120/${this.account}?colors=4EB3DE,8DE0A6,FCF09F,F27C7C,DE528C`
+    }
+  },
   password: {
     type: String,
     required: [true, '缺少使用者密碼']

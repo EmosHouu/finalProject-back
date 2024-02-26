@@ -81,7 +81,7 @@ export const getAll = async (req, res) => {
 export const get = async (req, res) => {
   try {
     const data = await activity
-      .aggregate([{ $sample: { size: 4 } }]) // 隨機取 4 筆資料
+      .aggregate([{ $sample: { size: 4 } }]) // 隨機取 8 筆資料
 
     // countDocuments() 依照 () 內篩選計算總資料數
     const total = await activity.countDocuments()

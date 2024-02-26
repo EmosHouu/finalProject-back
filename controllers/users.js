@@ -1,7 +1,7 @@
 import users from '../models/users.js'
 import { StatusCodes } from 'http-status-codes'
 import jwt from 'jsonwebtoken'
-// import products from '../models/products.js'
+// import activity from '../models/products.js'
 import validator from 'validator'
 
 export const create = async (req, res) => {
@@ -45,10 +45,12 @@ export const login = async (req, res) => {
       result: {
         token,
         _id: req.user._id,
+        name: req.user.name,
         account: req.user.account,
         email: req.user.email,
         role: req.user.role,
-        cart: req.user.cartQuantity
+        cart: req.user.cartQuantity,
+        avatar: req.user.avatar
       }
     })
   } catch (error) {
@@ -106,7 +108,8 @@ export const getProfile = (req, res) => {
         account: req.user.account,
         email: req.user.email,
         role: req.user.role,
-        cart: req.user.cartQuantity
+        cart: req.user.cartQuantity,
+        avatar: req.user.avatar
       }
     })
   } catch (error) {
