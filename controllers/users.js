@@ -50,7 +50,9 @@ export const login = async (req, res) => {
         email: req.user.email,
         role: req.user.role,
         cart: req.user.cartQuantity,
-        avatar: req.user.avatar
+        avatar: req.user.avatar,
+        phone: req.user.phone,
+        birthday: req.user.birthday
       }
     })
   } catch (error) {
@@ -109,7 +111,9 @@ export const getProfile = (req, res) => {
         email: req.user.email,
         role: req.user.role,
         cart: req.user.cartQuantity,
-        avatar: req.user.avatar
+        avatar: req.user.avatar,
+        phone: req.user.phone,
+        birthday: req.user.birthday
       }
     })
   } catch (error) {

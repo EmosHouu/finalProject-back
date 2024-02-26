@@ -41,10 +41,13 @@ export const getAll = async (req, res) => {
     const regex = new RegExp(req.query.search || '', 'i')
 
     const data = await activity
+    // 搜尋關鍵字
       .find({
         $or: [
           { name: regex },
-          { description: regex }
+          { location: regex },
+          { category: regex },
+          { area: regex }
         ]
 
       })
