@@ -84,7 +84,7 @@ export const getAll = async (req, res) => {
 export const get = async (req, res) => {
   try {
     const data = await activity
-      .aggregate([{ $sample: { size: 4 } }]) // 隨機取 8 筆資料
+      .aggregate([{ $sample: { size: 8 } }]) // 隨機取 8 筆資料
 
     // countDocuments() 依照 () 內篩選計算總資料數
     const total = await activity.countDocuments()
@@ -305,12 +305,68 @@ export const getByGo = async (req, res) => {
     // 首先使用 $match 筛选 category 为 '揪團玩' 的文档
     // 然后使用 $sample 随机取 4 筆資料
     const data = await activity.aggregate([
-      { $match: { category: '揪團玩' } }, // 筛选出 category 为 '揪團玩' 的文档
+      { $match: { category: '揪團行' } }, // 筛选出 category 为 '揪團玩' 的文档
       { $sample: { size: 8 } } // 随机选取 4 篇文档
     ])
 
     // countDocuments() 依照 () 内筛选计算总数据数，只计算 category 为 '揪團玩' 的文档
-    const total = await activity.countDocuments({ category: '揪團玩' })
+    const total = await activity.countDocuments({ category: '揪團行' })
+    console.log('data: ', data)
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: '',
+      result: {
+        data, total
+      }
+    })
+  } catch (error) {
+    console.log(error)
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: '未知錯誤'
+    })
+  }
+}
+
+export const getByBuy = async (req, res) => {
+  try {
+    // 首先使用 $match 筛选 category 为 '揪團玩' 的文档
+    // 然后使用 $sample 随机取 4 筆資料
+    const data = await activity.aggregate([
+      { $match: { category: '揪團買' } }, // 筛选出 category 为 '揪團玩' 的文档
+      { $sample: { size: 8 } } // 随机选取 4 篇文档
+    ])
+
+    // countDocuments() 依照 () 内筛选计算总数据数，只计算 category 为 '揪團玩' 的文档
+    const total = await activity.countDocuments({ category: '揪團買' })
+    console.log('data: ', data)
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: '',
+      result: {
+        data, total
+      }
+    })
+  } catch (error) {
+    console.log(error)
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: '未知錯誤'
+    })
+  }
+}
+
+export const getByHotel = async (req, res) => {
+  try {
+    // 首先使用 $match 筛选 category 为 '揪團玩' 的文档
+    // 然后使用 $sample 随机取 4 筆資料
+    const data = await activity.aggregate([
+      { $match: { category: '揪團住' } }, // 筛选出 category 为 '揪團玩' 的文档
+      { $sample: { size: 8 } } // 随机选取 4 篇文档
+    ])
+
+    // countDocuments() 依照 () 内筛选计算总数据数，只计算 category 为 '揪團玩' 的文档
+    const total = await activity.countDocuments({ category: '揪團住' })
     console.log('data: ', data)
     res.status(StatusCodes.OK).json({
       success: true,
