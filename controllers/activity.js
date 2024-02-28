@@ -105,6 +105,34 @@ export const get = async (req, res) => {
   }
 }
 
+// export const get = async (req, res) => {
+//   try {
+//     // 首先使用 $match 筛选 category 为 '揪團玩' 的文档
+//     // 然后使用 $sample 随机取 4 筆資料
+//     const data = await activity.aggregate([
+//       { $match: { category: '揪團玩' } }, // 筛选出 category 为 '揪團玩' 的文档
+//       { $sample: { size: 4 } } // 随机选取 4 篇文档
+//     ])
+
+//     // countDocuments() 依照 () 内筛选计算总数据数，只计算 category 为 '揪團玩' 的文档
+//     const total = await activity.countDocuments({ category: '揪團玩' })
+//     console.log('data: ', data)
+//     res.status(StatusCodes.OK).json({
+//       success: true,
+//       message: '',
+//       result: {
+//         data, total
+//       }
+//     })
+//   } catch (error) {
+//     console.log(error)
+//     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+//       success: false,
+//       message: '未知錯誤'
+//     })
+//   }
+// }
+
 export const getId = async (req, res) => {
   try {
     if (!validator.isMongoId(req.params.id)) throw new Error('ID')
@@ -174,5 +202,128 @@ export const edit = async (req, res) => {
         message: '未知錯誤'
       })
     }
+  }
+}
+
+export const getUserActivities = async (req, res) => {
+  try {
+    const userId = req.user.id // replace this with how you get the user's ID
+    const userActivities = await activity.find({ user: userId })
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: '',
+      result: userActivities
+    })
+  } catch (error) {
+    console.log(error)
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: '未知錯誤'
+    })
+  }
+}
+
+// export const getByCategory = async (req, res) => {
+//   try {
+//     const category = req.params.category // replace this with how you get the category
+//     const data = await activity.find({ category }) // find activities in the specified category
+
+//     // countDocuments() 依照 () 內篩選計算總資料數
+//     const total = await activity.countDocuments({ category }) // count activities in the specified category
+//     console.log('data: ', data)
+//     res.status(StatusCodes.OK).json({
+//       success: true,
+//       message: '',
+//       result: {
+//         data, total
+//       }
+//     })
+//   } catch (error) {
+//     console.log(error)
+//     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+//       success: false,
+//       message: '未知錯誤'
+//     })
+//   }
+// }
+
+export const getByCategory = async (req, res) => {
+  try {
+    // 固定category为'揪團玩'
+    const category = '揪團玩'
+    const data = await activity.find({ category: '揪團玩' }) // 直接指定查询条件
+
+    // countDocuments() 依照 () 內篩選計算總資料數
+    const total = await activity.countDocuments({ category: '揪團玩' }) // 直接指定查询条件
+    console.log('data: ', data)
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: '',
+      result: {
+        data, total
+      }
+    })
+  } catch (error) {
+    console.log(error)
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: '未知錯誤'
+    })
+  }
+}
+
+export const getByPlay = async (req, res) => {
+  try {
+    // 首先使用 $match 筛选 category 为 '揪團玩' 的文档
+    // 然后使用 $sample 随机取 4 筆資料
+    const data = await activity.aggregate([
+      { $match: { category: '揪團玩' } }, // 筛选出 category 为 '揪團玩' 的文档
+      { $sample: { size: 9 } } // 随机选取 4 篇文档
+    ])
+
+    // countDocuments() 依照 () 内筛选计算总数据数，只计算 category 为 '揪團玩' 的文档
+    const total = await activity.countDocuments({ category: '揪團玩' })
+    console.log('data: ', data)
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: '',
+      result: {
+        data, total
+      }
+    })
+  } catch (error) {
+    console.log(error)
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: '未知錯誤'
+    })
+  }
+}
+
+export const getByGo = async (req, res) => {
+  try {
+    // 首先使用 $match 筛选 category 为 '揪團玩' 的文档
+    // 然后使用 $sample 随机取 4 筆資料
+    const data = await activity.aggregate([
+      { $match: { category: '揪團玩' } }, // 筛选出 category 为 '揪團玩' 的文档
+      { $sample: { size: 8 } } // 随机选取 4 篇文档
+    ])
+
+    // countDocuments() 依照 () 内筛选计算总数据数，只计算 category 为 '揪團玩' 的文档
+    const total = await activity.countDocuments({ category: '揪團玩' })
+    console.log('data: ', data)
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: '',
+      result: {
+        data, total
+      }
+    })
+  } catch (error) {
+    console.log(error)
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: '未知錯誤'
+    })
   }
 }
