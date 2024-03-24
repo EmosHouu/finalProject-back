@@ -278,7 +278,7 @@ export const getByPlay = async (req, res) => {
     // 然后使用 $sample 随机取 4 筆資料
     const data = await activity.aggregate([
       { $match: { category: '揪團玩' } }, // 筛选出 category 为 '揪團玩' 的文档
-      { $sample: { size: 9 } } // 随机选取 4 篇文档
+      { $sample: { size: 9 } } // 随机选取9篇文档
     ])
 
     // countDocuments() 依照 () 内筛选计算总数据数，只计算 category 为 '揪團玩' 的文档
